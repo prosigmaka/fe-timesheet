@@ -1,128 +1,63 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './dashboardSidebar';
+import PropTypes from 'prop-types';
+import { Icon } from '@iconify/react';
+import menu2Fill from '@iconify/icons-eva/menu-2-fill';
+// material
+import { alpha, styled } from '@mui/material/styles';
+import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+// components
+import { MHidden } from './@material-extend';
+//
 
 
-const drawerWidth = 240;
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+// ----------------------------------------------------------------------
+
+const DRAWER_WIDTH = 280;
+const APPBAR_MOBILE = 64;
+const APPBAR_DESKTOP = 92;
+
+const RootStyle = styled(AppBar)(({ theme }) => ({
+  boxShadow: 'none',
+  backdropFilter: 'blur(6px)',
+  WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
+  backgroundColor: alpha(theme.palette.background.default, 0.72),
+  [theme.breakpoints.up('lg')]: {
+    width: `calc(100% - ${DRAWER_WIDTH + 1}px)`
+  }
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
+  minHeight: APPBAR_MOBILE,
+  [theme.breakpoints.up('lg')]: {
+    minHeight: APPBAR_DESKTOP,
+    padding: theme.spacing(0, 5)
+  }
+}));
 
+// ----------------------------------------------------------------------
 
-function DashboardNavbar(){
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-  return(
-    <>
-      <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
-        </Drawer>
-    </>
-  )
+DashboardNavbar.propTypes = {
+  onOpenSidebar: PropTypes.func
+};
+
+export default function DashboardNavbar({ onOpenSidebar }) {
+  return (
+    <RootStyle>
+      <ToolbarStyle>
+        <MHidden width="lgUp">
+          <IconButton onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
+            <Icon icon={menu2Fill} />
+          </IconButton>
+        </MHidden>
+        < Typography variant='h6' style={{color: '#000000'}}>
+          Dashboard
+        </Typography>
+
+       
+        <Box sx={{ flexGrow: 1 }} />
+
+        
+      </ToolbarStyle>
+    </RootStyle>
+  );
 }
-
-export default DashboardNavbar;

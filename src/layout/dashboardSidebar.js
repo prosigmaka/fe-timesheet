@@ -1,70 +1,118 @@
-import * as React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+// material
+import { styled } from '@mui/material/styles';
+import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+// components
+// import Logo from './Logo';
+import Logo from './prosigmaka-logo.png'
+import Scrollbar from './Scrollbar';
+import NavSection from './NavSection';
+import { MHidden } from './@material-extend';
+//
+import sidebarConfig from './SidebarConfig';
+import account from '../_mocks_/account';
 
-export const mainListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
-);
+// ----------------------------------------------------------------------
 
-export const secondaryListItems = (
-  <div>
-    
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+const DRAWER_WIDTH = 280;
+
+const RootStyle = styled('div')(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
+    flexShrink: 0,
+    width: DRAWER_WIDTH
+  }
+}));
+
+const AccountStyle = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(2, 2.5),
+  borderRadius: theme.shape.borderRadiusSm,
+  backgroundColor: theme.palette.grey[200]
+}));
+
+// ----------------------------------------------------------------------
+
+DashboardSidebar.propTypes = {
+  isOpenSidebar: PropTypes.bool,
+  onCloseSidebar: PropTypes.func
+};
+
+export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isOpenSidebar) {
+      onCloseSidebar();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  const renderContent = (
+    <Scrollbar
+      sx={{
+        height: '100%',
+        '& .simplebar-content': { height: '100%', display: 'flex', flexDirection: 'column' }
+      }}
+    >
+      <Box sx={{ px: 2.5, py: 3 }}>
+        <Box component={RouterLink} to="/" sx={{ display: 'inline-flex' }}>
+          <img src={Logo} style={{width:'100px'}}/>
+        </Box>
+      </Box>
+
+      <Box sx={{ mb: 5, mx: 2.5}}>
+        <Link underline="none" component={RouterLink} to="#">
+          <AccountStyle>
+            <Avatar src={account.photoURL} alt="photoURL" />
+            <Box sx={{ ml: 2 }}>
+              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+                {account.displayName}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {account.role}
+              </Typography>
+            </Box>
+          </AccountStyle>
+        </Link>
+      </Box>
+
+      <NavSection navConfig={sidebarConfig} />
+
+      <Box sx={{ flexGrow: 1 }} />
+    </Scrollbar>
+  );
+
+  return (
+    <RootStyle>
+      <MHidden width="lgUp">
+        <Drawer
+          open={isOpenSidebar}
+          onClose={onCloseSidebar}
+          PaperProps={{
+            sx: { width: DRAWER_WIDTH }
+          }}
+        >
+          {renderContent}
+        </Drawer>
+      </MHidden>
+
+     <MHidden width="lgDown">
+        <Drawer
+          open
+          variant="persistent"
+          PaperProps={{
+            sx: {
+              width: DRAWER_WIDTH,
+              bgcolor: 'background.default'
+            }
+          }}
+        >
+          {renderContent}
+        </Drawer>
+     </MHidden>
+    </RootStyle>
+  );
+}
