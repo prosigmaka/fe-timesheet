@@ -24,7 +24,7 @@ const sidebarConfig = [
   },
   {
     title: "timesheet",
-    path: "/dashboard/products",
+    path: "/dashboard/timesheet",
     icon: getIcon(fileTextFill),
   },
   {

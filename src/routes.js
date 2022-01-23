@@ -3,6 +3,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import DashboardKaryawan from "./pages/karyawan/DashboardKaryawan";
 import Employee from "./pages/admin/Employee";
+import Timesheet from "./pages/admin/Timesheet";
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +45,17 @@ export default function Router() {
     {
       path: "/dashboard/Employee",
       element: <Employee />,
+      // children: [
+      //   { element: <Navigate to="/dashboard/app" replace /> },
+      //   { path: 'app', element: <DashboardApp /> },
+      //   { path: 'user', element: <User /> },
+      //   { path: 'products', element: <Products /> },
+      //   { path: 'blog', element: <Blog /> }
+      // ]
+    },
+    {
+      path: "/dashboard/timesheet",
+      element: <Timesheet />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },
