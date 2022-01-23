@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailTimesheet, getListTimesheet } from "../../actions/projectActions";
+import { detailProject, getListProject } from "../../actions/projectActions";
 import { AddEmployee } from "..";
 import { openModal } from "../../actions/projectActions";
 import AddIcon from "@mui/icons-material/Add";
@@ -31,13 +31,13 @@ function ListEmployee() {
   //   const handlePageChange = (event, newPage) => {
   //     setPage(newPage);
   //   };
-  const { getListTimesheetResult, getListTimesheetLoading, getListTimesheetError, openModalResult } = useSelector((state) => state.TimesheetReducer);
+  const { getListEmployeeResult, getListEmployeeLoading, getListEmployeeError, openModalResult } = useSelector((state) => state.TimesheetReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // panggil action getlisttimesheet
     console.log("1. use effect component did mount");
-    dispatch(getListTimesheet());
+    dispatch(getListProject());
   }, [dispatch]);
 
   return (
@@ -64,16 +64,16 @@ function ListEmployee() {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>Employee Name</TableCell>
                 <TableCell>Project Name</TableCell>
-                <TableCell>Placement Address</TableCell>
                 <TableCell>Start Date</TableCell>
                 <TableCell>End Date</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {getListTimesheetResult ? (
-                getListTimesheetResult.map((activity) => {
+              {getListEmployeeResult ? (
+                getListEmployeeResult.map((activity) => {
                   return (
                     <TableRow key={activity.id}>
                       <TableCell>{activity.date}</TableCell>
@@ -87,7 +87,7 @@ function ListEmployee() {
                           type="button"
                           onClick={(e) => {
                             openHandler(e);
-                            dispatch(detailTimesheet(activity));
+                            dispatch(detailProject(activity));
                           }}
                         >
                           Edit
@@ -96,13 +96,13 @@ function ListEmployee() {
                     </TableRow>
                   );
                 })
-              ) : getListTimesheetLoading ? (
+              ) : getListEmployeeLoading ? (
                 <TableRow>
                   <TableCell>Loading...</TableCell>
                 </TableRow>
               ) : (
                 <TableRow>
-                  <TableCell>{getListTimesheetError ? getListTimesheetError : "Data Kosong"}</TableCell>
+                  <TableCell>{getListEmployeeError ? getListEmployeeError : "Data Kosong"}</TableCell>
                 </TableRow>
               )}
             </TableBody>

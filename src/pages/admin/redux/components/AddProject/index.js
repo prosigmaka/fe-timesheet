@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { addTimesheet, getListTimesheet, updateTimesheet, openModal } from "../../actions/projectActions";
+import { addProject, getListProject, updateProject, openModal } from "../../actions/projectActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -37,29 +37,14 @@ const projectname = [
   },
 ];
 
-const status = [
-  {
-    value: "Bekerja",
-    label: "Bekerja",
-  },
-  {
-    value: "Cuti",
-    label: "Cuti",
-  },
-  {
-    value: "Sakit",
-    label: "Sakit",
-  },
-];
-
 function AddProject() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const { addTimesheetResult, detailTimesheetResult, updateTimesheetResult } = useSelector((state) => state.TimesheetReducer);
+  const { addProjectResult, detailProjectResult, updateProjectResult } = useSelector((state) => state.TimesheetReducer);
 
-  const [formData, setFormData] = useState({
+  const [formProject, setFormProject] = useState({
     id: "",
     projectname: "",
     placement: "",
@@ -68,10 +53,10 @@ function AddProject() {
   });
 
   const handleChange = (e) => {
-    let data = { ...formData };
+    let data = { ...formProject };
     data[e.target.name] = e.target.value;
     console.log(data);
-    setFormData(data);
+    setFormProject(data);
   };
 
   const closeHandler = (e) => {
@@ -84,15 +69,15 @@ function AddProject() {
     e.preventDefault();
 
     // saat ada id update timesheet
-    if (formData.id) {
+    if (formProject.id) {
       // update kontak
       dispatch(
-        updateTimesheet({
-          id: formData.id,
-          projectname: formData.projectname,
-          placement: formData.placement,
-          sdate: formData.date,
-          edate: formData.edate,
+        updateProject({
+          id: formProject.id,
+          projectname: formProject.projectname,
+          placement: formProject.placement,
+          sdate: formProject.date,
+          edate: formProject.edate,
         })
       );
     }
@@ -100,63 +85,55 @@ function AddProject() {
     else {
       // add timesheet
       dispatch(
-        addTimesheet({
-          projectname: formData.projectname,
-          placement: formData.placement,
-          sdate: formData.date,
-          edate: formData.edate,
+        addProject({
+          projectname: formProject.projectname,
+          placement: formProject.placement,
+          sdate: formProject.date,
+          edate: formProject.edate,
         })
       );
     }
   };
 
   useEffect(() => {
-    if (addTimesheetResult) {
+    if (addProjectResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListTimesheet());
-      setFormData({
+      dispatch(getListProject());
+      setFormProject({
         projectname: "",
         placement: "",
         sdate: "",
         edate: "",
       });
     }
-  }, [addTimesheetResult, dispatch]);
+  }, [addProjectResult, dispatch]);
 
   useEffect(() => {
-    if (detailTimesheetResult) {
+    if (detailProjectResult) {
       // console.log('6. Masuk komponen did update')
       // dispatch(getListKontak())
-      setFormData({
-        id: detailTimesheetResult.id,
-        projectname: detailTimesheetResult.projectname,
-        date: detailTimesheetResult.date,
-        status: detailTimesheetResult.status,
-        startworkinghour: detailTimesheetResult.startworkinghour,
-        endworkinghour: detailTimesheetResult.endworkinghour,
-        startovertime: detailTimesheetResult.startovertime,
-        endovertime: detailTimesheetResult.endovertime,
-        activity: detailTimesheetResult.activity,
+      setFormProject({
+        id: detailProjectResult.id,
+        projectname: detailProjectResult.projectname,
+        placement: detailProjectResult.placement,
+        sdate: detailProjectResult.sdate,
+        edate: detailProjectResult.edate,
       });
     }
-  }, [detailTimesheetResult, dispatch]);
+  }, [detailProjectResult, dispatch]);
 
   useEffect(() => {
-    if (updateTimesheetResult) {
+    if (updateProjectResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListTimesheet());
-      setFormData({
+      dispatch(getListProject());
+      setFormProject({
         projectname: "",
-        date: "",
-        status: "",
-        startworkinghour: "00:00",
-        endworkinghour: "00:00",
-        startovertime: "00:00",
-        endovertime: "00:00",
-        activity: "",
+        placement: "",
+        sdate: "",
+        edate: "",
       });
     }
-  }, [updateTimesheetResult, dispatch]);
+  }, [updateProjectResult, dispatch]);
 
   return (
     <>
@@ -164,7 +141,7 @@ function AddProject() {
         <Stack alignItems="center">
           <CardContent className={classes.cardContent} style={{ textAlign: "center" }}>
             <Typography gutterBottom component="div" style={{ fontWeight: "bold", fontSize: "12pt", marginTop: "10px", marginBottom: "25px" }}>
-              {formData.id ? "Edit Project" : "Add Project"}
+              {formProject.id ? "Edit Project" : "Add Project"}
             </Typography>
             <Stack
               component="form"
@@ -177,22 +154,22 @@ function AddProject() {
             >
               <FormControl variant="standard">
                 <InputLabel shrink>Project Name</InputLabel>
-                <TextField id="activity" name="projectname" type="text" variant="outlined" multiline value={formData.projectname} onChange={handleChange} />
+                <TextField id="project" name="projectname" type="text" variant="outlined" multiline value={formProject.projectname} onChange={handleChange} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Placement Addres</InputLabel>
-                <TextField id="activity" name="projectname" type="text" variant="outlined" multiline value={formData.placement} onChange={handleChange} />
+                <TextField id="project" name="placement" type="text" variant="outlined" multiline value={formProject.placement} onChange={handleChange} autoFocus />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formProject.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>End Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formProject.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>

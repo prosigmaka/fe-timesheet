@@ -43,7 +43,7 @@ export default function DashboardKaryawan() {
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
-        <ListTimesheetAdmin />
+        {/* <ListTimesheetAdmin /> */}
       </MainStyle>
     </RootStyle>
   );

@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { addTimesheet, getListTimesheet, updateTimesheet, openModal } from "../../actions/projectActions";
+import { addEmployee, getListEmployee, updateEmployee, openModal } from "../../actions/employeeAction";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -57,7 +57,7 @@ function AddEmployee() {
 
   const dispatch = useDispatch();
 
-  const { addTimesheetResult, detailTimesheetResult, updateTimesheetResult } = useSelector((state) => state.TimesheetReducer);
+  const { addEmployeeResult, detailEmployeeResult, updateEmployeeResult } = useSelector((state) => state.TimesheetReducer);
 
   const [formData, setFormData] = useState({
     id: "",
@@ -87,11 +87,11 @@ function AddEmployee() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // saat ada id update timesheet
+    // saat ada id update Employee
     if (formData.id) {
       // update kontak
       dispatch(
-        updateTimesheet({
+        updateEmployee({
           id: formData.id,
           projectname: formData.projectname,
           date: formData.date,
@@ -104,11 +104,11 @@ function AddEmployee() {
         })
       );
     }
-    // saat tidak ada id maka add timesheet
+    // saat tidak ada id maka add Employee
     else {
-      // add timesheet
+      // add Employee
       dispatch(
-        addTimesheet({
+        addEmployee({
           projectname: formData.projectname,
           date: formData.date,
           status: formData.status,
@@ -123,9 +123,9 @@ function AddEmployee() {
   };
 
   useEffect(() => {
-    if (addTimesheetResult) {
+    if (addEmployeeResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListTimesheet());
+      dispatch(getListEmployee());
       setFormData({
         projectname: "",
         date: "",
@@ -137,30 +137,30 @@ function AddEmployee() {
         activity: "",
       });
     }
-  }, [addTimesheetResult, dispatch]);
+  }, [addEmployeeResult, dispatch]);
 
   useEffect(() => {
-    if (detailTimesheetResult) {
+    if (detailEmployeeResult) {
       // console.log('6. Masuk komponen did update')
       // dispatch(getListKontak())
       setFormData({
-        id: detailTimesheetResult.id,
-        projectname: detailTimesheetResult.projectname,
-        date: detailTimesheetResult.date,
-        status: detailTimesheetResult.status,
-        startworkinghour: detailTimesheetResult.startworkinghour,
-        endworkinghour: detailTimesheetResult.endworkinghour,
-        startovertime: detailTimesheetResult.startovertime,
-        endovertime: detailTimesheetResult.endovertime,
-        activity: detailTimesheetResult.activity,
+        id: detailEmployeeResult.id,
+        projectname: detailEmployeeResult.projectname,
+        date: detailEmployeeResult.date,
+        status: detailEmployeeResult.status,
+        startworkinghour: detailEmployeeResult.startworkinghour,
+        endworkinghour: detailEmployeeResult.endworkinghour,
+        startovertime: detailEmployeeResult.startovertime,
+        endovertime: detailEmployeeResult.endovertime,
+        activity: detailEmployeeResult.activity,
       });
     }
-  }, [detailTimesheetResult, dispatch]);
+  }, [detailEmployeeResult, dispatch]);
 
   useEffect(() => {
-    if (updateTimesheetResult) {
+    if (updateEmployeeResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListTimesheet());
+      dispatch(getListEmployee());
       setFormData({
         projectname: "",
         date: "",
@@ -172,7 +172,7 @@ function AddEmployee() {
         activity: "",
       });
     }
-  }, [updateTimesheetResult, dispatch]);
+  }, [updateEmployeeResult, dispatch]);
 
   return (
     <>
@@ -180,7 +180,7 @@ function AddEmployee() {
         <Stack alignItems="center">
           <CardContent className={classes.cardContent} style={{ textAlign: "center" }}>
             <Typography gutterBottom component="div" style={{ fontWeight: "bold", fontSize: "12pt", marginTop: "10px", marginBottom: "25px" }}>
-              {formData.id ? "Edit Activity" : "Add Activity"}
+              {formData.id ? "Edit Employee" : "Add Employee"}
             </Typography>
             <Stack
               component="form"
@@ -209,12 +209,12 @@ function AddEmployee() {
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.date} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.date} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>

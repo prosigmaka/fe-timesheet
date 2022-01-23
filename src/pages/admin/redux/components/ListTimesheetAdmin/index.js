@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailTimesheet, getListTimesheet } from "../../actions/projectActions";
+import { detailProject, getListProject } from "../../actions/projectActions";
 import { AddProject } from "..";
 import { openModal } from "../../actions/projectActions";
 import AddIcon from "@mui/icons-material/Add";

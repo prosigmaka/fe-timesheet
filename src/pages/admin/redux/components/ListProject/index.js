@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailTimesheet, getListTimesheet } from "../../actions/projectActions";
+import { detailProject, getListProject } from "../../actions/projectActions";
 import { AddProject } from "..";
 import { openModal } from "../../actions/projectActions";
 import AddIcon from "@mui/icons-material/Add";
@@ -31,13 +31,13 @@ function ListProject() {
   //   const handlePageChange = (event, newPage) => {
   //     setPage(newPage);
   //   };
-  const { getListTimesheetResult, getListTimesheetLoading, getListTimesheetError, openModalResult } = useSelector((state) => state.TimesheetReducer);
+  const { getListProjectResult, getListProjectLoading, getListProjectError, openModalResult } = useSelector((state) => state.TimesheetReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // panggil action getlisttimesheet
     console.log("1. use effect component did mount");
-    dispatch(getListTimesheet());
+    dispatch(getListProject());
   }, [dispatch]);
 
   return (
@@ -72,8 +72,8 @@ function ListProject() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {getListTimesheetResult ? (
-                getListTimesheetResult.map((activity) => {
+              {getListProjectResult ? (
+                getListProjectResult.map((activity) => {
                   return (
                     <TableRow key={activity.id}>
                       <TableCell>{activity.date}</TableCell>
@@ -87,7 +87,7 @@ function ListProject() {
                           type="button"
                           onClick={(e) => {
                             openHandler(e);
-                            dispatch(detailTimesheet(activity));
+                            dispatch(detailProject(activity));
                           }}
                         >
                           Edit
@@ -96,13 +96,13 @@ function ListProject() {
                     </TableRow>
                   );
                 })
-              ) : getListTimesheetLoading ? (
+              ) : getListProjectLoading ? (
                 <TableRow>
                   <TableCell>Loading...</TableCell>
                 </TableRow>
               ) : (
                 <TableRow>
-                  <TableCell>{getListTimesheetError ? getListTimesheetError : "Data Kosong"}</TableCell>
+                  <TableCell>{getListProjectError ? getListProjectError : "Data Kosong"}</TableCell>
                 </TableRow>
               )}
             </TableBody>
