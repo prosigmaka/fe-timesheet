@@ -16,7 +16,7 @@ import {
 
 import DashboardNavbar from '../../layout/dashboardNavbar';
 import DashboardSidebar from '../../layout/dashboardSidebar';
-
+import {MenuCards, ListTimesheet} from './redux/components';
 
 // ----------------------------------------------------------------------
 
@@ -53,37 +53,8 @@ export default function DashboardKaryawan() {
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
-        <Typography variant="h4" gutterBottom>
-          Timesheet
-        </Typography>
-        </Stack>
-        <Card>
-          <Box sx={{ minWidth: 1050 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    Date
-                  </TableCell>
-                  <TableCell>
-                    Working Hour
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                <TableCell>
-                  01/01/22
-                </TableCell>
-                <TableCell>
-                  09:00-10:00
-                </TableCell>
-              </TableBody>
-            </Table>
-          </Box>
-        </Card>
-      
+        <MenuCards/>
+        <ListTimesheet/>
       </MainStyle>
     </RootStyle>
   );
