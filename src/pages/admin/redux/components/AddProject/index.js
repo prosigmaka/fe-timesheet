@@ -164,12 +164,12 @@ function AddProject() {
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formProject.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="sdate" type="date" variant="outlined" size="small" value={formProject.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>End Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formProject.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="edate" type="date" variant="outlined" size="small" value={formProject.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>

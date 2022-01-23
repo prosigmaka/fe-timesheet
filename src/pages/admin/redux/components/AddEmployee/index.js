@@ -59,23 +59,20 @@ function AddEmployee() {
 
   const { addEmployeeResult, detailEmployeeResult, updateEmployeeResult } = useSelector((state) => state.TimesheetReducer);
 
-  const [formData, setFormData] = useState({
+  const [employeeData, setEmployeeData] = useState({
     id: "",
+    employeename: "",
     projectname: "",
-    date: "",
+    sdate: "",
+    edate: "",
     status: "",
-    startworkinghour: "00:00",
-    endworkinghour: "00:00",
-    startovertime: "00:00",
-    endovertime: "00:00",
-    activity: "",
   });
 
   const handleChange = (e) => {
-    let data = { ...formData };
+    let data = { ...employeeData };
     data[e.target.name] = e.target.value;
     console.log(data);
-    setFormData(data);
+    setEmployeeData(data);
   };
 
   const closeHandler = (e) => {
@@ -88,19 +85,15 @@ function AddEmployee() {
     e.preventDefault();
 
     // saat ada id update Employee
-    if (formData.id) {
+    if (employeeData.id) {
       // update kontak
       dispatch(
         updateEmployee({
-          id: formData.id,
-          projectname: formData.projectname,
-          date: formData.date,
-          status: formData.status,
-          startworkinghour: formData.startworkinghour,
-          endworkinghour: formData.endworkinghour,
-          startovertime: formData.startovertime,
-          endovertime: formData.startovertime,
-          activity: formData.activity,
+          id: employeeData.id,
+          employeename: employeeData.employeename,
+          projectname: employeeData.projectname,
+          sdate: employeeData.sdate,
+          edate: employeeData.edate,
         })
       );
     }
@@ -109,14 +102,10 @@ function AddEmployee() {
       // add Employee
       dispatch(
         addEmployee({
-          projectname: formData.projectname,
-          date: formData.date,
-          status: formData.status,
-          startworkinghour: formData.startworkinghour,
-          endworkinghour: formData.endworkinghour,
-          startovertime: formData.startovertime,
-          endovertime: formData.startovertime,
-          activity: formData.activity,
+          employeename: employeeData.employeename,
+          projectname: employeeData.projectname,
+          sdate: employeeData.sdate,
+          edate: employeeData.edate,
         })
       );
     }
@@ -126,15 +115,11 @@ function AddEmployee() {
     if (addEmployeeResult) {
       // console.log('6. Masuk komponen did update')
       dispatch(getListEmployee());
-      setFormData({
+      setEmployeeData({
+        employeename: "",
         projectname: "",
-        date: "",
-        status: "",
-        startworkinghour: "00:00",
-        endworkinghour: "00:00",
-        startovertime: "00:00",
-        endovertime: "00:00",
-        activity: "",
+        sdate: "",
+        edate: "",
       });
     }
   }, [addEmployeeResult, dispatch]);
@@ -143,16 +128,12 @@ function AddEmployee() {
     if (detailEmployeeResult) {
       // console.log('6. Masuk komponen did update')
       // dispatch(getListKontak())
-      setFormData({
+      setEmployeeData({
         id: detailEmployeeResult.id,
+        employeename: detailEmployeeResult.employeename,
         projectname: detailEmployeeResult.projectname,
-        date: detailEmployeeResult.date,
-        status: detailEmployeeResult.status,
-        startworkinghour: detailEmployeeResult.startworkinghour,
-        endworkinghour: detailEmployeeResult.endworkinghour,
-        startovertime: detailEmployeeResult.startovertime,
-        endovertime: detailEmployeeResult.endovertime,
-        activity: detailEmployeeResult.activity,
+        sdate: detailEmployeeResult.sdate,
+        edate: detailEmployeeResult.edate,
       });
     }
   }, [detailEmployeeResult, dispatch]);
@@ -161,15 +142,11 @@ function AddEmployee() {
     if (updateEmployeeResult) {
       // console.log('6. Masuk komponen did update')
       dispatch(getListEmployee());
-      setFormData({
+      setEmployeeData({
+        employeename: "",
         projectname: "",
-        date: "",
-        status: "",
-        startworkinghour: "00:00",
-        endworkinghour: "00:00",
-        startovertime: "00:00",
-        endovertime: "00:00",
-        activity: "",
+        sdate: "",
+        edate: "",
       });
     }
   }, [updateEmployeeResult, dispatch]);
@@ -180,7 +157,7 @@ function AddEmployee() {
         <Stack alignItems="center">
           <CardContent className={classes.cardContent} style={{ textAlign: "center" }}>
             <Typography gutterBottom component="div" style={{ fontWeight: "bold", fontSize: "12pt", marginTop: "10px", marginBottom: "25px" }}>
-              {formData.id ? "Edit Employee" : "Add Employee"}
+              {employeeData.id ? "Edit Employee" : "Add Employee"}
             </Typography>
             <Stack
               component="form"
@@ -193,12 +170,12 @@ function AddEmployee() {
             >
               <FormControl variant="standard">
                 <InputLabel shrink>Employee Name</InputLabel>
-                <TextField id="activity" name="activity" type="text" multiline value={formData.activity} onChange={handleChange} />
+                <TextField id="employee" name="employeename" type="text" multiline value={employeeData.employeename} onChange={handleChange} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Project Name</InputLabel>
-                <TextField id="projectname" select size="small" label="Select Project" name="projectname" value={formData.projectname} onChange={handleChange} style={{ marginTop: "25px" }}>
+                <TextField id="employee" select size="small" label="Select Project" name="projectname" value={employeeData.projectname} onChange={handleChange} style={{ marginTop: "25px" }}>
                   {projectname.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
@@ -209,12 +186,12 @@ function AddEmployee() {
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="sdate" name="sdate" type="date" variant="outlined" size="small" value={employeeData.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="date" type="date" variant="outlined" size="small" value={formData.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="edate" name="edate" type="date" variant="outlined" size="small" value={employeeData.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
