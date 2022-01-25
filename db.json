@@ -76,17 +76,7 @@
       "endovertime": "00:00",
       "activity": "Membuat API",
       "id": 7
-    },
-    {
-      "projectname": "",
-      "date": "",
-      "status": "",
-      "startworkinghour": "00:00",
-      "endworkinghour": "00:00",
-      "startovertime": "00:00",
-      "endovertime": "00:00",
-      "activity": "",
-      "id": 8
     }
+    
   ]
 }
