@@ -1,17 +1,17 @@
 import { Navigate, useRoutes } from "react-router-dom";
 // layouts
-import DashboardAdmin from "./pages/admin/DashboardAdmin";
+// import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import DashboardKaryawan from "./pages/karyawan/DashboardKaryawan";
-import Employee from "./pages/admin/Employee";
-import Timesheet from "./pages/admin/Timesheet";
+// import Employee from "./pages/admin/Employee";
+// import Timesheet from "./pages/admin/Timesheet";
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
   return useRoutes([
     {
-      path: "/dashboard/admin",
-      element: <DashboardAdmin />,
+      // path: "/dashboard/admin",
+      // element: <DashboardAdmin />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },
@@ -21,8 +21,8 @@ export default function Router() {
       // ]
     },
     {
-      path: "/",
-      element: <DashboardAdmin />,
+      // path: "/",
+      // element: <DashboardAdmin />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },
@@ -43,8 +43,8 @@ export default function Router() {
       // ]
     },
     {
-      path: "/dashboard/Employee",
-      element: <Employee />,
+      // path: "/dashboard/Employee",
+      // element: <Employee />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },
@@ -54,8 +54,8 @@ export default function Router() {
       // ]
     },
     {
-      path: "/dashboard/timesheet",
-      element: <Timesheet />,
+      // path: "/dashboard/timesheet",
+      // element: <Timesheet />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },

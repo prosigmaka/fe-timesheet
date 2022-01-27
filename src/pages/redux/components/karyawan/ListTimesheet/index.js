@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {detailTimesheet, getListTimesheet} from '../../actions/timesheetAction';
+import {detailTimesheet, getListTimesheet} from '../../../actions/karyawan/timesheetAction';
 import AddTimesheet from '../AddTimesheet/index';
-import {openModal} from '../../actions/timesheetAction';
+import {openModal} from '../../../actions/karyawan/timesheetAction';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 // import {openModal} from '../../actions/timesheetAction';
@@ -68,7 +68,7 @@ function ListTimesheet() {
       
       <Modal
         open={openModalResult}
-        style={{marginTop:'20px', marginLeft: '500px'}}
+        style={{marginTop:'10px', marginLeft: '500px'}}
       >
         <div>
           {/* <Button onClick={closeHandler}><CloseIcon/></Button> */}
@@ -109,10 +109,10 @@ function ListTimesheet() {
                             {activity.date}
                           </TableCell>
                           <TableCell>
-                            {activity.startworkinghour} - {activity.endworkinghour}
+                            {activity.working_start} - {activity.working_end}
                           </TableCell>
                           <TableCell>
-                            {activity.projectname}
+                            {activity.project_id}
                           </TableCell>
                           <TableCell>
                             {activity.activity}

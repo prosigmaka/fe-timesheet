@@ -16,7 +16,7 @@ import {
 
 import DashboardNavbar from '../../layout/dashboardNavbar';
 import DashboardSidebar from '../../layout/dashboardSidebar';
-import {MenuCards, ListTimesheet} from './redux/components';
+import {MenuCards, ListTimesheet} from '../redux/components';
 
 // ----------------------------------------------------------------------
 

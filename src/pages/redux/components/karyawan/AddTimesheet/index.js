@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import {makeStyles} from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
-import {addTimesheet, getListTimesheet, updateTimesheet, openModal} from '../../actions/timesheetAction';
+import {addTimesheet, getListTimesheet, updateTimesheet, openModal} from '../../../actions/karyawan/timesheetAction';
 
 
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         width: '400px',
         flexDirection: 'column',
-        margin: '5px',
+        marginTop: '2px',
     },
     cardMedia: {
         paddingTop: '56.25%', // 16:9
@@ -27,34 +27,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const projectname = [
+const project_id = [
     {
-      value: 'Project 1',
+      value: 1,
       label: 'Project 1',
     },
     {
-      value: 'Project 2',
+      value: 2,
       label: 'Project 2',
     },
     {
-      value: 'Project 3',
+      value: 3,
       label: 'Project 3',
     },
   ];
 
 
-const status = [
+const status_id = [
     {
-      value: 'Bekerja',
+      value: 1,
       label: 'Bekerja',
     },
     {
-      value: 'Cuti',
+      value: 2,
       label: 'Cuti',
     },
     {
-      value: 'Sakit',
+      value: 3,
       label: 'Sakit',
+    },
+    {
+        value: 4,
+        label: 'Izin',
     },
   ];
 
@@ -66,17 +70,17 @@ function AddTimesheet() {
 
     const dispatch = useDispatch();
 
-    const {addTimesheetResult, detailTimesheetResult, updateTimesheetResult} = useSelector((state) => state.TimesheetReducer);
+    const {addTimesheetResult, detailTimesheetResult, updateTimesheetResult, openModalResult} = useSelector((state) => state.TimesheetReducer);
 
     const [formData, setFormData] = useState({
         id:"",
-        projectname: "",
+        project_id: "",
         date: "",
-        status: "",
-        startworkinghour: "00:00",
-        endworkinghour: "00:00",
-        startovertime: "00:00",
-        endovertime: "00:00",
+        status_id: "",
+        working_start: "00:00",
+        working_end: "00:00",
+        overtime_start: "00:00",
+        overtime_end: "00:00",
         activity: ""
     });
 
@@ -91,6 +95,16 @@ function AddTimesheet() {
     const closeHandler = e => {
         e.preventDefault();
         dispatch(openModal(false))
+        setFormData({
+            project_id: "",
+            date: "",
+            status_id: "",
+            working_start: "00:00",
+            working_end: "00:00",
+            overtime_start: "00:00",
+            overtime_end: "00:00",
+            activity: ""
+        })
         // setOpen(false)
         
     }
@@ -105,13 +119,13 @@ function AddTimesheet() {
             // update kontak
             dispatch(updateTimesheet({
                 id: formData.id,
-                projectname: formData.projectname,
+                project_id: formData.project_id,
                 date: formData.date,
-                status: formData.status,
-                startworkinghour: formData.startworkinghour,
-                endworkinghour: formData.endworkinghour,
-                startovertime: formData.startovertime,
-                endovertime: formData.startovertime,
+                status_id: formData.status_id,
+                working_start: formData.working_start,
+                working_end: formData.working_end,
+                overtime_start: formData.overtime_start,
+                overtime_end: formData.overtime_end,
                 activity: formData.activity,
             }))
             
@@ -120,13 +134,13 @@ function AddTimesheet() {
         else{
             // add timesheet
             dispatch(addTimesheet({
-                projectname: formData.projectname,
+                project_id: formData.project_id,
                 date: formData.date,
-                status: formData.status,
-                startworkinghour: formData.startworkinghour,
-                endworkinghour: formData.endworkinghour,
-                startovertime: formData.startovertime,
-                endovertime: formData.startovertime,
+                status_id: formData.status_id,
+                working_start: formData.working_start,
+                working_end: formData.working_end,
+                overtime_start: formData.overtime_start,
+                overtime_end: formData.overtime_end,
                 activity: formData.activity,
             }))
             
@@ -141,13 +155,13 @@ function AddTimesheet() {
             // console.log('6. Masuk komponen did update')
             dispatch(getListTimesheet())
             setFormData({
-                projectname: "",
+                project_id: "",
                 date: "",
-                status: "",
-                startworkinghour: "00:00",
-                endworkinghour: "00:00",
-                startovertime: "00:00",
-                endovertime: "00:00",
+                status_id: "",
+                working_start: "00:00",
+                working_end: "00:00",
+                overtime_start: "00:00",
+                overtime_end: "00:00",
                 activity: ""
             })
             
@@ -161,13 +175,13 @@ function AddTimesheet() {
             // dispatch(getListKontak())
             setFormData({
                 id: detailTimesheetResult.id,
-                projectname: detailTimesheetResult.projectname,
+                project_id: detailTimesheetResult.project_id,
                 date: detailTimesheetResult.date,
-                status: detailTimesheetResult.status,
-                startworkinghour: detailTimesheetResult.startworkinghour,
-                endworkinghour: detailTimesheetResult.endworkinghour,
-                startovertime: detailTimesheetResult.startovertime,
-                endovertime: detailTimesheetResult.endovertime,
+                status_id: detailTimesheetResult.status_id,
+                working_start: detailTimesheetResult.working_start,
+                working_end: detailTimesheetResult.working_end,
+                overtime_start: detailTimesheetResult.overtime_start,
+                overtime_end: detailTimesheetResult.overtime_end,
                 activity: detailTimesheetResult.activity
             })
             
@@ -180,18 +194,33 @@ function AddTimesheet() {
             // console.log('6. Masuk komponen did update')
             dispatch(getListTimesheet())
             setFormData({
-                projectname: "",
+                project_id: "",
                 date: "",
-                status: "",
-                startworkinghour: "00:00",
-                endworkinghour: "00:00",
-                startovertime: "00:00",
-                endovertime: "00:00",
+                status_id: "",
+                working_start: "00:00",
+                working_end: "00:00",
+                overtime_start: "00:00",
+                overtime_end: "00:00",
                 activity: ""
             })
         }
     },[updateTimesheetResult, dispatch])
 
+
+    // useEffect(()=>{
+    //     if (openModalResult === false) {
+    //         setFormData({
+    //             project_id: "",
+    //             date: "",
+    //             status_id: "",
+    //             working_start: "00:00",
+    //             working_end: "00:00",
+    //             overtime_start: "00:00",
+    //             overtime_end: "00:00",
+    //             activity: ""
+    //         })
+    //     }
+    // })
 
     
 
@@ -228,12 +257,12 @@ function AddTimesheet() {
                             select
                             size="small"
                             label="Select Project"
-                            name="projectname"
-                            value={formData.projectname}
+                            name="project_id"
+                            value={formData.project_id}
                             onChange={handleChange}
                             style={{marginTop:'25px'}} 
                         >
-                            {projectname.map((option) => (
+                            {project_id.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
                                     {option.label}
                                 </MenuItem>
@@ -266,12 +295,12 @@ function AddTimesheet() {
                             select
                             label="Select Status"
                             size="small"
-                            name="status"
-                            value={formData.status}
+                            name="status_id"
+                            value={formData.status_id}
                             onChange={handleChange}
                             style={{marginTop:'25px'}}
                         >
-                            {status.map((option) => (
+                            {status_id.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
                                     {option.label}
                                 </MenuItem>
@@ -286,24 +315,24 @@ function AddTimesheet() {
                             </InputLabel>
                             <TextField 
                                 id="startworkinghour" 
-                                name="startworkinghour" 
+                                name="working_start" 
                                 type="time"
                                 label="Start" 
                                 variant="outlined"
                                 size='small' 
-                                value={formData.startworkinghour} 
+                                value={formData.working_start} 
                                 onChange={handleChange}
                                 style={{marginTop:'25px'}}
                             />
                         </FormControl>
                         <TextField 
                                 id="endworkinghour"
-                                name="endworkinghour"
+                                name="working_end"
                                 type="time" 
                                 label="End" 
                                 size='small' 
                                 variant="outlined" 
-                                value={formData.endworkinghour} 
+                                value={formData.working_end} 
                                 onChange={handleChange}
                                 style={{marginTop:'25px'}}
                         />
@@ -318,12 +347,12 @@ function AddTimesheet() {
                             </InputLabel>
                             <TextField 
                                 id="startovertime" 
-                                name="startovertime" 
+                                name="overtime_start" 
                                 label='Start'
                                 type="time" 
                                 size='small' 
                                 variant="outlined" 
-                                value={formData.startovertime} 
+                                value={formData.overtime_start} 
                                 onChange={handleChange}
                                 style={{marginTop:'25px'}}
                             />
@@ -331,12 +360,12 @@ function AddTimesheet() {
                         
                         <TextField 
                             id="endovertime" 
-                            name="endovertime" 
+                            name="overtime_end" 
                             type="time"
                             label="End"
                             size='small' 
                             variant="outlined" 
-                            value={formData.endovertime} 
+                            value={formData.overtime_end} 
                             onChange={handleChange}
                             style={{marginTop:'25px'}}
                         />
@@ -353,6 +382,7 @@ function AddTimesheet() {
                             multiline 
                             value={formData.activity} 
                             onChange={handleChange}
+                            style={{marginTop:'25px'}}
                         />
                     </FormControl>
                     

@@ -1,4 +1,4 @@
-import {GET_LIST_TIMESHEET, ADD_TIMESHEET, DETAIL_TIMESHEET, UPDATE_TIMESHEET, OPEN_MODAL} from '../../actions/timesheetAction';
+import {GET_LIST_TIMESHEET, ADD_TIMESHEET, DETAIL_TIMESHEET, UPDATE_TIMESHEET, OPEN_MODAL} from '../../../actions/karyawan/timesheetAction';
 
 
 const initialState = {

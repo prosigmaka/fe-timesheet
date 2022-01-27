@@ -22,7 +22,7 @@ export const getListTimesheet = () =>{
         // get api
         axios({
             method: "GET",
-            url: 'http://localhost:3000/timesheet',
+            url: 'http://localhost:4000/timesheets',
             timeout: 120000
         })
             .then((response)=>{
@@ -69,7 +69,7 @@ export const addTimesheet = (data) =>{
         // get api
         axios({
             method: "POST",
-            url: 'http://localhost:3000/timesheet',
+            url: 'http://localhost:4000/timesheets',
             timeout: 120000,
             data: data
         })
@@ -129,7 +129,7 @@ export const updateTimesheet = (data) =>{
         // get api
         axios({
             method: "PUT",
-            url: 'http://localhost:3000/timesheet/'+ data.id,
+            url: 'http://localhost:4000/timesheets/'+ data.id,
             timeout: 120000,
             data: data
         })
