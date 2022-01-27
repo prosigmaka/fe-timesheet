@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { Box, Button, Card, Modal, Stack, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
+import project from "../../reducer/project";
 
 function ListProject() {
   const openHandler = (e) => {
@@ -73,21 +74,19 @@ function ListProject() {
             </TableHead>
             <TableBody>
               {getListProjectResult ? (
-                getListProjectResult.map((activity) => {
+                getListProjectResult.map((p) => {
                   return (
-                    <TableRow key={activity.id}>
-                      <TableCell>{activity.date}</TableCell>
-                      <TableCell>
-                        {activity.startworkinghour} - {activity.endworkinghour}
-                      </TableCell>
-                      <TableCell>{activity.projectname}</TableCell>
-                      <TableCell>{activity.activity}</TableCell>
+                    <TableRow key={p.id}>
+                      <TableCell>{p.projectname}</TableCell>
+                      <TableCell>{p.placement}</TableCell>
+                      <TableCell>{p.speriode}</TableCell>
+                      <TableCell>{p.eperiode}</TableCell>
                       <TableCell>
                         <Button
                           type="button"
                           onClick={(e) => {
                             openHandler(e);
-                            dispatch(detailProject(activity));
+                            dispatch(detailProject(p));
                           }}
                         >
                           Edit

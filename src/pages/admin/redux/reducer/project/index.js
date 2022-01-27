@@ -5,7 +5,7 @@ const initialState = {
   getListProjectLoading: false,
   getListProjectError: false,
 
-  addProjectResult: false,
+  addprojectResult: false,
   addProjectLoading: false,
   addProjectError: false,
 
@@ -18,7 +18,7 @@ const initialState = {
   openModalResult: false,
 };
 
-const Project = (state = initialState, action) => {
+const project = (state = initialState, action) => {
   switch (action.type) {
     case GET_LIST_PROJECT:
       console.log("4. Masuk reducer: ", action);
@@ -32,7 +32,7 @@ const Project = (state = initialState, action) => {
       console.log("4. Masuk reducer: ", action);
       return {
         ...state,
-        addProjectResult: action.payload.data,
+        addprojectResult: action.payload.data,
         addProjectLoading: action.payload.loading,
         addProjectError: action.payload.errorMessage,
       };
@@ -61,4 +61,4 @@ const Project = (state = initialState, action) => {
   }
 };
 
-export default Project;
+export default project;

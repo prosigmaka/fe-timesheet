@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     margin: "10px",
-    backgroundColor: theme.palette.primary.lighter,
-    color: theme.palette.primary.darker,
+    // backgroundColor: theme.palette.secondary.lighter,
+    color: theme.palette.secondary.contastText,
   },
   cardMedia: {
     paddingTop: "56.25%", // 16:9
@@ -32,7 +32,7 @@ function MenuCards() {
     <React.Fragment>
       <Container maxWidth="md" style={{ marginTop: "30px" }}>
         <Grid container spacing={5}>
-          <Card className={classes.card}>
+          <Card className={classes.card} sx={{ backgroundColor: "#C8FACD" }}>
             <CardContent>
               <Grid container spacing={3} sx={{ justifyContent: "center" }}>
                 <Grid item>
@@ -44,7 +44,7 @@ function MenuCards() {
             </CardContent>
           </Card>
 
-          <Card className={classes.card}>
+          <Card className={classes.card} sx={{ backgroundColor: "#D6E4FF" }}>
             <CardContent>
               <Grid container spacing={2} sx={{ justifyContent: "center" }}>
                 <Grid item>
@@ -56,7 +56,7 @@ function MenuCards() {
             </CardContent>
           </Card>
 
-          <Card className={classes.card}>
+          <Card className={classes.card} sx={{ backgroundColor: "#D6E4FF" }}>
             <CardContent>
               <Grid container spacing={3} sx={{ justifyContent: "center" }}>
                 <Grid item>
@@ -68,7 +68,7 @@ function MenuCards() {
             </CardContent>
           </Card>
 
-          <Card className={classes.card}>
+          <Card className={classes.card} sx={{ backgroundColor: "#FFF7CD" }}>
             <CardContent>
               <Grid container spacing={3} sx={{ justifyContent: "center" }}>
                 <Grid item>
@@ -80,7 +80,7 @@ function MenuCards() {
             </CardContent>
           </Card>
 
-          <Card className={classes.card}>
+          <Card className={classes.card} sx={{ backgroundColor: "#FFE7D9" }}>
             <CardContent>
               <Grid container spacing={3} sx={{ justifyContent: "center" }}>
                 <Grid item>

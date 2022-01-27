@@ -7,7 +7,7 @@ export const UPDATE_PROJECT = "UPDATE_PROJECT";
 export const OPEN_MODAL = "OPEN_MODAL";
 
 export const getListProject = () => {
-  console.log("2. Masuk action getListProject");
+  console.log("2. Masuk action getList");
   return (dispatch) => {
     // loading
     dispatch({
@@ -22,12 +22,12 @@ export const getListProject = () => {
     // get api
     axios({
       method: "GET",
-      url: "http://localhost:3000/project",
+      url: "http://localhost:1234/project",
       timeout: 120000,
     })
       .then((response) => {
         // berhasil get api
-        console.log("3. Berhasil dapat data", response);
+        console.log("3. Berhasil get Data", response);
         dispatch({
           type: "GET_LIST_PROJECT",
           payload: {
@@ -68,7 +68,7 @@ export const addProject = (data) => {
     // get api
     axios({
       method: "POST",
-      url: "http://localhost:3000/project",
+      url: "http://localhost:1234/project",
       timeout: 120000,
       data: data,
     })
@@ -126,7 +126,7 @@ export const updateProject = (data) => {
     // get api
     axios({
       method: "PUT",
-      url: "http://localhost:3000/project/" + data.id,
+      url: "http://localhost:1234/project/" + data.id,
       timeout: 120000,
       data: data,
     })

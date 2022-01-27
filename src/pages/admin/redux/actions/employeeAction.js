@@ -22,7 +22,7 @@ export const getListEmployee = () => {
     // get api
     axios({
       method: "GET",
-      url: "http://localhost:3000/employee",
+      url: "http://localhost:1234/employee",
       timeout: 120000,
     })
       .then((response) => {
@@ -68,7 +68,7 @@ export const addEmployee = (data) => {
     // get api
     axios({
       method: "POST",
-      url: "http://localhost:3000/employee",
+      url: "http://localhost:1234/employee",
       timeout: 120000,
       data: data,
     })
@@ -126,7 +126,7 @@ export const updateEmployee = (data) => {
     // get api
     axios({
       method: "PUT",
-      url: "http://localhost:3000/employee/" + data.id,
+      url: "http://localhost:1234/employee/" + data.id,
       timeout: 120000,
       data: data,
     })

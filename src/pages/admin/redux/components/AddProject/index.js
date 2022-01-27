@@ -42,14 +42,14 @@ function AddProject() {
 
   const dispatch = useDispatch();
 
-  const { addProjectResult, detailProjectResult, updateProjectResult } = useSelector((state) => state.TimesheetReducer);
+  const { addProjectResult, detailProjectResult, updateProjectResult } = useSelector((state) => state.ProjectReducer);
 
   const [formProject, setFormProject] = useState({
     id: "",
     projectname: "",
     placement: "",
-    sdate: "",
-    edate: "",
+    speriode: "",
+    eperiode: "",
   });
 
   const handleChange = (e) => {
@@ -76,10 +76,11 @@ function AddProject() {
           id: formProject.id,
           projectname: formProject.projectname,
           placement: formProject.placement,
-          sdate: formProject.date,
-          edate: formProject.edate,
+          speriode: formProject.speriode,
+          eperiode: formProject.eperiode,
         })
       );
+      dispatch(openModal(false));
     }
     // saat tidak ada id maka add timesheet
     else {
@@ -88,8 +89,8 @@ function AddProject() {
         addProject({
           projectname: formProject.projectname,
           placement: formProject.placement,
-          sdate: formProject.date,
-          edate: formProject.edate,
+          speriode: formProject.speriode,
+          eperiode: formProject.eperiode,
         })
       );
     }
@@ -102,8 +103,8 @@ function AddProject() {
       setFormProject({
         projectname: "",
         placement: "",
-        sdate: "",
-        edate: "",
+        speriode: "",
+        eperiode: "",
       });
     }
   }, [addProjectResult, dispatch]);
@@ -116,8 +117,8 @@ function AddProject() {
         id: detailProjectResult.id,
         projectname: detailProjectResult.projectname,
         placement: detailProjectResult.placement,
-        sdate: detailProjectResult.sdate,
-        edate: detailProjectResult.edate,
+        speriode: detailProjectResult.speriode,
+        eperiode: detailProjectResult.eperiode,
       });
     }
   }, [detailProjectResult, dispatch]);
@@ -129,8 +130,8 @@ function AddProject() {
       setFormProject({
         projectname: "",
         placement: "",
-        sdate: "",
-        edate: "",
+        speriode: "",
+        eperiode: "",
       });
     }
   }, [updateProjectResult, dispatch]);
@@ -154,22 +155,22 @@ function AddProject() {
             >
               <FormControl variant="standard">
                 <InputLabel shrink>Project Name</InputLabel>
-                <TextField id="project" name="projectname" type="text" variant="outlined" multiline value={formProject.projectname} onChange={handleChange} />
+                <TextField id="project" name="projectname" type="text" variant="outlined" multiline value={formProject.projectname} onChange={handleChange} autoFocus />
               </FormControl>
 
               <FormControl variant="standard">
-                <InputLabel shrink>Placement Addres</InputLabel>
-                <TextField id="project" name="placement" type="text" variant="outlined" multiline value={formProject.placement} onChange={handleChange} autoFocus />
+                <InputLabel shrink>Placement Address</InputLabel>
+                <TextField id="project" name="placement" type="text" variant="outlined" multiline value={formProject.placement} onChange={handleChange} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="date" name="sdate" type="date" variant="outlined" size="small" value={formProject.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="speriode" type="date" variant="outlined" size="small" value={formProject.speriode} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>End Date</InputLabel>
-                <TextField id="date" name="edate" type="date" variant="outlined" size="small" value={formProject.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="eperiode" type="date" variant="outlined" size="small" value={formProject.eperiode} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
