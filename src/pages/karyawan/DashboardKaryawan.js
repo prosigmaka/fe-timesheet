@@ -16,7 +16,7 @@ import {
 
 import DashboardNavbar from '../../layout/dashboardNavbar';
 import DashboardSidebar from '../../layout/dashboardSidebar';
-import {MenuCards, ListTimesheet} from '../redux/components';
+import {MenuCardsKaryawan, ListTimesheet} from '../redux/components';
 
 // ----------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ export default function DashboardKaryawan() {
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
-        <MenuCards/>
+        <MenuCardsKaryawan/>
         <ListTimesheet/>
       </MainStyle>
     </RootStyle>

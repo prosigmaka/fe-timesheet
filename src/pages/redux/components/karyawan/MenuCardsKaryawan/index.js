@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function MenuCards () {
+function MenuCardsKaryawan () {
   const classes = useStyles();
 
 
@@ -114,5 +114,5 @@ function MenuCards () {
   )
 }
 
-export default MenuCards;
+export default MenuCardsKaryawan;
   
