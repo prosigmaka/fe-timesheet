@@ -1,4 +1,4 @@
-import { GET_LIST_PROJECT, ADD_PROJECT, DETAIL_PROJECT, UPDATE_PROJECT, OPEN_MODAL } from "../../actions/projectActions";
+import { GET_LIST_PROJECT, ADD_PROJECT, DETAIL_PROJECT, UPDATE_PROJECT, OPEN_MODAL } from "../../../actions/admin/projectActions";
 
 const initialState = {
   getListProjectResult: false,

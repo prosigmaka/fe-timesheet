@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployee, getListEmployee, updateEmployee, openModal } from "../../actions/employeeAction";
+import { addProject, getListProject, updateProject, openModal } from "../../../actions/admin/projectActions";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -37,42 +37,26 @@ const projectname = [
   },
 ];
 
-const status = [
-  {
-    value: "Bekerja",
-    label: "Bekerja",
-  },
-  {
-    value: "Cuti",
-    label: "Cuti",
-  },
-  {
-    value: "Sakit",
-    label: "Sakit",
-  },
-];
-
-function AddEmployee() {
+function AddProject() {
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const { addEmployeeResult, detailEmployeeResult, updateEmployeeResult } = useSelector((state) => state.TimesheetReducer);
+  const { addProjectResult, detailProjectResult, updateProjectResult } = useSelector((state) => state.ProjectReducer);
 
-  const [employeeData, setEmployeeData] = useState({
+  const [formProject, setFormProject] = useState({
     id: "",
-    employeename: "",
     projectname: "",
-    sdate: "",
-    edate: "",
-    status: "",
+    placement: "",
+    speriode: "",
+    eperiode: "",
   });
 
   const handleChange = (e) => {
-    let data = { ...employeeData };
+    let data = { ...formProject };
     data[e.target.name] = e.target.value;
     console.log(data);
-    setEmployeeData(data);
+    setFormProject(data);
   };
 
   const closeHandler = (e) => {
@@ -84,72 +68,73 @@ function AddEmployee() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // saat ada id update Employee
-    if (employeeData.id) {
+    // saat ada id update timesheet
+    if (formProject.id) {
       // update kontak
       dispatch(
-        updateEmployee({
-          id: employeeData.id,
-          employeename: employeeData.employeename,
-          projectname: employeeData.projectname,
-          sdate: employeeData.sdate,
-          edate: employeeData.edate,
+        updateProject({
+          id: formProject.id,
+          projectname: formProject.projectname,
+          placement: formProject.placement,
+          speriode: formProject.speriode,
+          eperiode: formProject.eperiode,
         })
       );
+      dispatch(openModal(false));
     }
-    // saat tidak ada id maka add Employee
+    // saat tidak ada id maka add timesheet
     else {
-      // add Employee
+      // add timesheet
       dispatch(
-        addEmployee({
-          employeename: employeeData.employeename,
-          projectname: employeeData.projectname,
-          sdate: employeeData.sdate,
-          edate: employeeData.edate,
+        addProject({
+          projectname: formProject.projectname,
+          placement: formProject.placement,
+          speriode: formProject.speriode,
+          eperiode: formProject.eperiode,
         })
       );
     }
   };
 
   useEffect(() => {
-    if (addEmployeeResult) {
+    if (addProjectResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListEmployee());
-      setEmployeeData({
-        employeename: "",
+      dispatch(getListProject());
+      setFormProject({
         projectname: "",
-        sdate: "",
-        edate: "",
+        placement: "",
+        speriode: "",
+        eperiode: "",
       });
     }
-  }, [addEmployeeResult, dispatch]);
+  }, [addProjectResult, dispatch]);
 
   useEffect(() => {
-    if (detailEmployeeResult) {
+    if (detailProjectResult) {
       // console.log('6. Masuk komponen did update')
       // dispatch(getListKontak())
-      setEmployeeData({
-        id: detailEmployeeResult.id,
-        employeename: detailEmployeeResult.employeename,
-        projectname: detailEmployeeResult.projectname,
-        sdate: detailEmployeeResult.sdate,
-        edate: detailEmployeeResult.edate,
+      setFormProject({
+        id: detailProjectResult.id,
+        projectname: detailProjectResult.projectname,
+        placement: detailProjectResult.placement,
+        speriode: detailProjectResult.speriode,
+        eperiode: detailProjectResult.eperiode,
       });
     }
-  }, [detailEmployeeResult, dispatch]);
+  }, [detailProjectResult, dispatch]);
 
   useEffect(() => {
-    if (updateEmployeeResult) {
+    if (updateProjectResult) {
       // console.log('6. Masuk komponen did update')
-      dispatch(getListEmployee());
-      setEmployeeData({
-        employeename: "",
+      dispatch(getListProject());
+      setFormProject({
         projectname: "",
-        sdate: "",
-        edate: "",
+        placement: "",
+        speriode: "",
+        eperiode: "",
       });
     }
-  }, [updateEmployeeResult, dispatch]);
+  }, [updateProjectResult, dispatch]);
 
   return (
     <>
@@ -157,7 +142,7 @@ function AddEmployee() {
         <Stack alignItems="center">
           <CardContent className={classes.cardContent} style={{ textAlign: "center" }}>
             <Typography gutterBottom component="div" style={{ fontWeight: "bold", fontSize: "12pt", marginTop: "10px", marginBottom: "25px" }}>
-              {employeeData.id ? "Edit Employee" : "Add Employee"}
+              {formProject.id ? "Edit Project" : "Add Project"}
             </Typography>
             <Stack
               component="form"
@@ -169,29 +154,23 @@ function AddEmployee() {
               autoComplete="off"
             >
               <FormControl variant="standard">
-                <InputLabel shrink>Employee Name</InputLabel>
-                <TextField id="employee" name="employeename" type="text" multiline value={employeeData.employeename} onChange={handleChange} />
-              </FormControl>
-
-              <FormControl variant="standard">
                 <InputLabel shrink>Project Name</InputLabel>
-                <TextField id="employee" select size="small" label="Select Project" name="projectname" value={employeeData.projectname} onChange={handleChange} style={{ marginTop: "25px" }}>
-                  {projectname.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <TextField id="project" name="projectname" type="text" variant="outlined" multiline value={formProject.projectname} onChange={handleChange} autoFocus />
+              </FormControl>
+
+              <FormControl variant="standard">
+                <InputLabel shrink>Placement Address</InputLabel>
+                <TextField id="project" name="placement" type="text" variant="outlined" multiline value={formProject.placement} onChange={handleChange} />
               </FormControl>
 
               <FormControl variant="standard">
                 <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="sdate" name="sdate" type="date" variant="outlined" size="small" value={employeeData.sdate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <TextField id="date" name="speriode" type="date" variant="outlined" size="small" value={formProject.speriode} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <FormControl variant="standard">
-                <InputLabel shrink>Start Date</InputLabel>
-                <TextField id="edate" name="edate" type="date" variant="outlined" size="small" value={employeeData.edate} onChange={handleChange} style={{ marginTop: "25px" }} />
+                <InputLabel shrink>End Date</InputLabel>
+                <TextField id="date" name="eperiode" type="date" variant="outlined" size="small" value={formProject.eperiode} onChange={handleChange} style={{ marginTop: "25px" }} />
               </FormControl>
 
               <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
@@ -210,4 +189,4 @@ function AddEmployee() {
   );
 }
 
-export default AddEmployee;
+export default AddProject;

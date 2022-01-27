@@ -1,38 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailProject, getListProject } from "../../actions/projectActions";
-import { AddProject } from "..";
-import { openModal } from "../../actions/projectActions";
+import { getListProject, openModal, detailProject } from "../../../actions/admin/projectActions";
+import { AddProject } from "../..";
 import AddIcon from "@mui/icons-material/Add";
-import CloseIcon from "@mui/icons-material/Close";
 
 import { Box, Button, Card, Modal, Stack, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
-import project from "../../reducer/project";
 
 function ListProject() {
   const openHandler = (e) => {
     e.preventDefault();
     dispatch(openModal(true));
-    // setOpen(true)
   };
 
-  //   const closeHandler = e => {
-  //     e.preventDefault();
-  //     dispatch(openModal(false))
-  //     // setOpen(false)
-
-  // }
-  // const [open, setOpen] = useState(false);
-  // const [limit, setLimit] = useState(10);
-  // const [page, setPage] = useState(0);
-  // const handleLimitChange = (event) => {
-  //     setLimit(event.target.value);
-  //   };
-
-  //   const handlePageChange = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
-  const { getListProjectResult, getListProjectLoading, getListProjectError, openModalResult } = useSelector((state) => state.TimesheetReducer);
+  const { getListProjectResult, getListProjectLoading, getListProjectError, openModalResult } = useSelector((state) => state.ProjectReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

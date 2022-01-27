@@ -6,7 +6,7 @@ import { Box, Card, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typ
 
 import DashboardNavbar from "../../layout/dashboardNavbar";
 import DashboardSidebar from "../../layout/dashboardSidebar";
-import { MenuCards, ListProject } from "./redux/components";
+import { MenuCards, ListProject } from "../redux/components";
 
 // ----------------------------------------------------------------------
 

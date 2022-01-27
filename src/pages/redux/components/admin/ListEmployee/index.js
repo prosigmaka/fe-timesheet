@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { detailProject, getListProject } from "../../actions/projectActions";
-import { AddEmployee } from "..";
-import { openModal } from "../../actions/projectActions";
+import { getListEmployee, detailEmployee, openModal } from "../../../actions/admin/employeeAction";
+import AddEmployee from "../AddEmployee";
 import AddIcon from "@mui/icons-material/Add";
-import CloseIcon from "@mui/icons-material/Close";
 
 import { Box, Button, Card, Modal, Stack, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 
@@ -15,29 +13,13 @@ function ListEmployee() {
     // setOpen(true)
   };
 
-  //   const closeHandler = e => {
-  //     e.preventDefault();
-  //     dispatch(openModal(false))
-  //     // setOpen(false)
-
-  // }
-  // const [open, setOpen] = useState(false);
-  // const [limit, setLimit] = useState(10);
-  // const [page, setPage] = useState(0);
-  // const handleLimitChange = (event) => {
-  //     setLimit(event.target.value);
-  //   };
-
-  //   const handlePageChange = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
-  const { getListEmployeeResult, getListEmployeeLoading, getListEmployeeError, openModalResult } = useSelector((state) => state.TimesheetReducer);
+  const { getListEmployeeResult, getListEmployeeLoading, getListEmployeeError, openModalResult } = useSelector((state) => state.EmployeeReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // panggil action getlisttimesheet
     console.log("1. use effect component did mount");
-    dispatch(getListProject());
+    dispatch(getListEmployee());
   }, [dispatch]);
 
   return (
@@ -73,21 +55,19 @@ function ListEmployee() {
             </TableHead>
             <TableBody>
               {getListEmployeeResult ? (
-                getListEmployeeResult.map((activity) => {
+                getListEmployeeResult.map((p) => {
                   return (
-                    <TableRow key={activity.id}>
-                      <TableCell>{activity.date}</TableCell>
-                      <TableCell>
-                        {activity.startworkinghour} - {activity.endworkinghour}
-                      </TableCell>
-                      <TableCell>{activity.projectname}</TableCell>
-                      <TableCell>{activity.activity}</TableCell>
+                    <TableRow key={p.id}>
+                      <TableCell>{p.employeename}</TableCell>
+                      <TableCell>{p.projectname}</TableCell>
+                      <TableCell>{p.sdate}</TableCell>
+                      <TableCell>{p.edate}</TableCell>
                       <TableCell>
                         <Button
                           type="button"
                           onClick={(e) => {
                             openHandler(e);
-                            dispatch(detailProject(activity));
+                            dispatch(detailEmployee(p));
                           }}
                         >
                           Edit
