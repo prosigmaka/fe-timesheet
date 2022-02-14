@@ -22,7 +22,7 @@ const initialState = {
 const timesheet = (state = initialState, action) => {
     switch(action.type) {
         case GET_LIST_TIMESHEET:
-            console.log("4. Masuk reducer: ", action)
+            console.log("4. Masuk reducer get: ", action)
             return{ 
                 ...state,
                 getListTimesheetResult: action.payload.data,
@@ -30,7 +30,7 @@ const timesheet = (state = initialState, action) => {
                 getListTimesheetError: action.payload.errorMessage
             };
         case ADD_TIMESHEET:
-            console.log("4. Masuk reducer: ", action)
+            console.log("4. Masuk reducer add: ", action)
             return{ 
                 ...state,
                 addTimesheetResult: action.payload.data,
@@ -38,14 +38,14 @@ const timesheet = (state = initialState, action) => {
                 addTimesheetError: action.payload.errorMessage
             };
         case DETAIL_TIMESHEET:
-            console.log("4. Masuk reducer: ", action)
+            console.log("4. Masuk reducer detail: ", action)
             return{ 
                 ...state,
                 detailTimesheetResult: action.payload.data,
                 
             };
         case UPDATE_TIMESHEET:
-            console.log("4. Masuk reducer: ", action)
+            console.log("4. Masuk reducer update: ", action)
             return{ 
                 ...state,
                 updateTimesheetResult: action.payload.data,
@@ -53,7 +53,7 @@ const timesheet = (state = initialState, action) => {
                 updateTimesheetError: action.payload.errorMessage
             };
         case OPEN_MODAL:
-            console.log("4. Masuk reducer: ", action)
+            console.log("4. Masuk reducer open modal: ", action)
             return{ 
                 ...state,
                 openModalResult: action.payload.data,

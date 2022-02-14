@@ -1,5 +1,5 @@
 {
-  "timesheet": [
+  "timesheets": [
     {
       "id": 1,
       "projectname": "Project 2",
@@ -76,7 +76,17 @@
       "endovertime": "00:00",
       "activity": "Membuat API",
       "id": 7
+    },
+    {
+      "id": 8,
+      "project_id": 2,
+      "date": "2022-01-26",
+      "status_id": 1,
+      "working_start": "13:00",
+      "working_end": "14:00",
+      "overtime_start": "00:00",
+      "overtime_end": "00:00",
+      "activity": "membuat fungsi modal"
     }
-    
   ]
 }

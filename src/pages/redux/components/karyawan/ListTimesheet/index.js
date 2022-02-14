@@ -56,6 +56,8 @@ function ListTimesheet() {
 
     }, [dispatch])
 
+    // console.log('getlisttimesheet'+getListTimesheetResult)
+
     return(
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
@@ -90,7 +92,7 @@ function ListTimesheet() {
                   Working Hour
                 </TableCell>
                 <TableCell>
-                  Project Name
+                  Project ID
                 </TableCell>
                 <TableCell>
                   Activity

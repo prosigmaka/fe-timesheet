@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import {Box, Card, Button, CardContent, FormControl, Grid, InputLabel,MenuItem, Stack, TextField, Typography} from '@mui/material';
+import {
+    Box, 
+    Card, 
+    Button,
+    CardContent, 
+    FormControl, 
+    Grid, 
+    InputLabel,
+    MenuItem, 
+    Stack, 
+    Table,
+    TableBody,
+    TableCell,
+    TableRow,
+    TextField, 
+    Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import {makeStyles} from "@mui/styles";
 import { useDispatch, useSelector } from 'react-redux';
 import {addTimesheet, getListTimesheet, updateTimesheet, openModal} from '../../../actions/karyawan/timesheetAction';
-
+import {getListStatus} from '../../../actions/karyawan/statusAction';
 
 
 
@@ -43,24 +58,27 @@ const project_id = [
   ];
 
 
-const status_id = [
-    {
-      value: 1,
-      label: 'Bekerja',
-    },
-    {
-      value: 2,
-      label: 'Cuti',
-    },
-    {
-      value: 3,
-      label: 'Sakit',
-    },
-    {
-        value: 4,
-        label: 'Izin',
-    },
-  ];
+// const status_id = [
+//     {
+//       value: 1,
+//       label: 'Bekerja',
+//     },
+//     {
+//       value: 2,
+//       label: 'Cuti',
+//     },
+//     {
+//       value: 3,
+//       label: 'Sakit',
+//     },
+//     {
+//         value: 4,
+//         label: 'Izin',
+//     },
+//   ];
+
+
+
 
 
 
@@ -70,7 +88,9 @@ function AddTimesheet() {
 
     const dispatch = useDispatch();
 
-    const {addTimesheetResult, detailTimesheetResult, updateTimesheetResult, openModalResult} = useSelector((state) => state.TimesheetReducer);
+    const {addTimesheetResult, detailTimesheetResult, updateTimesheetResult} = useSelector((state) => state.TimesheetReducer);
+    const {getListStatusResult, getListStatusLoading, getListStatusError} = useSelector((state) => state.StatusReducer);
+
 
     const [formData, setFormData] = useState({
         id:"",
@@ -84,6 +104,17 @@ function AddTimesheet() {
         activity: ""
     });
 
+   
+
+
+    useEffect(()=>{
+        console.log("use effect get list status")
+        dispatch(getListStatus())
+        // setStatus()
+    }, [dispatch])
+
+    // console.log("getlisttatus" + getListStatusResult)
+
     const handleChange = e => {
         let data = {...formData};
         data[e.target.name] = e.target.value;
@@ -95,18 +126,6 @@ function AddTimesheet() {
     const closeHandler = e => {
         e.preventDefault();
         dispatch(openModal(false))
-        setFormData({
-            project_id: "",
-            date: "",
-            status_id: "",
-            working_start: "00:00",
-            working_end: "00:00",
-            overtime_start: "00:00",
-            overtime_end: "00:00",
-            activity: ""
-        })
-        // setOpen(false)
-        
     }
 
     
@@ -127,7 +146,8 @@ function AddTimesheet() {
                 overtime_start: formData.overtime_start,
                 overtime_end: formData.overtime_end,
                 activity: formData.activity,
-            }))
+            }));
+            
             
         }
         // saat tidak ada id maka add timesheet
@@ -203,6 +223,7 @@ function AddTimesheet() {
                 overtime_end: "00:00",
                 activity: ""
             })
+            
         }
     },[updateTimesheetResult, dispatch])
 
@@ -300,13 +321,31 @@ function AddTimesheet() {
                             onChange={handleChange}
                             style={{marginTop:'25px'}}
                         >
-                            {status_id.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
+                            {/* {getListStatusResult.map((option) => (
+                                <MenuItem key={option.status_id} value={option.status_id}>
+                                    {option.status_name}
                                 </MenuItem>
-                            ))}
-                        </TextField>
+                            ))} */}
+
+                            {getListStatusResult ? (
+                                getListStatusResult.map((option) => {
+                                    return(
+                                            <MenuItem key={option.status_id} value={option.status_id}>
+                                                {option.status_name}
+                                            </MenuItem>    
+                                        )
+                                            })
+                                        ) : getListStatusLoading ? (
+                                            <MenuItem>
+                                                Loading...
+                                            </MenuItem>  
+                                        ) : (
+                                            <MenuItem>{getListStatusError ? getListStatusError : "Data Kosong"}</MenuItem> 
+                                        )
+                                    }
+                       </TextField>
                     </FormControl>
+                    
                     
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} mt={5}>
                         <FormControl variant="standard">

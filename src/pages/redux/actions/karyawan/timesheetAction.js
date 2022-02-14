@@ -22,17 +22,17 @@ export const getListTimesheet = () =>{
         // get api
         axios({
             method: "GET",
-            url: 'http://localhost:4000/timesheets',
+            url: 'http://localhost:8081/v1/timesheets',
             timeout: 120000
         })
             .then((response)=>{
                 // berhasil get api
-                console.log('3. Berhasil dapat data', response)
+                console.log('3. Berhasil dapat data get', response.data.data)
                 dispatch({
                     type: "GET_LIST_TIMESHEET",
                     payload: {
                         loading: false,
-                        data: response.data, 
+                        data: response.data.data, 
                         errorMessage: false
                     }
                 })
@@ -69,18 +69,18 @@ export const addTimesheet = (data) =>{
         // get api
         axios({
             method: "POST",
-            url: 'http://localhost:4000/timesheets',
+            url: 'http://localhost:8081/v1/timesheets',
             timeout: 120000,
             data: data
         })
             .then((response)=>{
                 // berhasil get api
-                console.log('3. Berhasil dapat data', response)
+                console.log('3. Berhasil dapat data add', response)
                 dispatch({
                     type: "ADD_TIMESHEET",
                     payload: {
                         loading: false,
-                        data: response.data, 
+                        data: response.data.data, 
                         errorMessage: false
                     }
                 })
@@ -129,18 +129,18 @@ export const updateTimesheet = (data) =>{
         // get api
         axios({
             method: "PUT",
-            url: 'http://localhost:4000/timesheets/'+ data.id,
+            url: 'http://localhost:8081/v1/timesheets/'+ data.id,
             timeout: 120000,
             data: data
         })
             .then((response)=>{
                 // berhasil get api
-                console.log('3. Berhasil dapat data', response)
+                console.log('3. Berhasil dapat data update', response)
                 dispatch({
                     type: "UPDATE_TIMESHEET",
                     payload: {
                         loading: false,
-                        data: response.data, 
+                        data: response.data.data, 
                         errorMessage: false
                     }
                 })
