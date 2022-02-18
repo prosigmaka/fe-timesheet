@@ -4,6 +4,8 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import Employee from "./pages/admin/Employee";
 import Timesheet from "./pages/admin/Timesheet";
 import Login from "./pages/login/Login";
+import DevPerform from "./pages/admin/DevPerform";
+
 
 // ----------------------------------------------------------------------
 
@@ -21,8 +23,8 @@ export default function Router() {
       // ]
     },
     {
-      path: "/login",
-      element: <Login />,
+      path: "/dashboard/devperform",
+      element: <DevPerform />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },
       //   { path: 'app', element: <DashboardApp /> },
@@ -32,6 +34,7 @@ export default function Router() {
       // ]
     },
     {
+      // default halaman login
       path: "/",
       element: <Login />,
       // children: [
@@ -44,7 +47,7 @@ export default function Router() {
     },
 
     {
-      path: "/dashboard/Employee",
+      path: "/dashboard/employee",
       element: <Employee />,
       // children: [
       //   { element: <Navigate to="/dashboard/app" replace /> },

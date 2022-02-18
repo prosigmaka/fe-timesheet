@@ -6,6 +6,7 @@ import fileTextFill from "@iconify/icons-eva/file-text-fill";
 import lockFill from "@iconify/icons-eva/lock-fill";
 import personAddFill from "@iconify/icons-eva/person-add-fill";
 import alertTriangleFill from "@iconify/icons-eva/alert-triangle-fill";
+import { BatteryChargingFullOutlined, Copyright } from "@mui/icons-material";
 
 // ----------------------------------------------------------------------
 
@@ -34,8 +35,8 @@ const sidebarConfig = [
   },
   {
     title: "Delivery Performance",
-    path: "/login",
-    icon: getIcon(lockFill),
+    path: "/dashboard/devperform",
+    icon: getIcon(pieChart2Fill),
   },
   {
     title: "Timesheet Collections",
